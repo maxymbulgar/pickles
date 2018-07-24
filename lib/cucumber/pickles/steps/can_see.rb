@@ -12,17 +12,17 @@ Then(/^I can(not)? see:( within (?:.*))?$/) do |is_not, within_block, table|
     check = -> within, content {
       within = within.strip.present? ? Pickles.guess_node(within, within: within_block) : within_block
 
+      Waiter.wait_for_ajax
       expect(within).not_to have_content(content)
     }
   else
     check = -> within, content {
       within = within.strip.present? ? Pickles.guess_node(within, within: within_block) : within_block
 
+      Waiter.wait_for_ajax
       expect(within).to have_content(content)
     }
   end
-
-  Waiter.wait_for_ajax
 
   case table.headers.length
   when 1

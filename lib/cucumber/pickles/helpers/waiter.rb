@@ -143,7 +143,7 @@ module Waiter
   #
   def wait_for_ajax
     page.document.synchronize do
-      pending_ajax_requests_num.zero?
+      pending_ajax_requests_num.zero? || raise(Capybara::ElementNotFound)
     end
   end
 
